@@ -109,6 +109,10 @@ export default {
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-gold': 'var(--gradient-gold)',
 				'gradient-card': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'elegant': 'var(--shadow-elegant)',
+				'gold': 'var(--shadow-gold)'
 			}
 		}
 	},
