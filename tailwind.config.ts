@@ -113,6 +113,14 @@ export default {
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'gold': 'var(--shadow-gold)'
+			},
+			fontFamily: {
+				'julius': ['Julius Sans One', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
+				'inria': ['Inria Serif', 'serif'],
+				'instrument': ['Instrument Sans', 'sans-serif'],
+				'lexend': ['Lexend Exa', 'sans-serif'],
+				'ibarra': ['Ibarra Real Nova', 'serif']
 			}
 		}
 	},
