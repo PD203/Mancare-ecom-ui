@@ -24,7 +24,7 @@ All colors MUST be HSL.
     --secondary-foreground: 210 20% 90%;
 
     --muted: 210 15% 12%;
-    --muted-foreground: 210 10% 60%;
+    --muted-foreground: 0, 0%, 88%;
 
     --accent: 35 85% 65%;
     --accent-foreground: 210 20% 8%;
@@ -39,21 +39,21 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Premium design tokens */
-    --gold: 35 85% 65%;
+    --gold: 0 0% 100%;
     --gold-foreground: 210 20% 8%;
     --copper: 20 75% 55%;
     --navy: 210 25% 8%;
     --charcoal: 210 15% 12%;
-    
+
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--navy)), hsl(210 20% 12%));
-    --gradient-gold: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--copper)));
+    --gradient-hero: linear-gradient(to right, #141E30, #243B55 );
+    --gradient-gold: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--charcoal)));
     --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(210 18% 12%));
-    
+
     /* Shadows */
     --shadow-elegant: 0 20px 40px -15px hsl(var(--navy) / 0.6);
     --shadow-gold: 0 8px 25px hsl(var(--gold) / 0.3);
-    
+
     /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -95,27 +95,21 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  .hero-button {
-    @apply bg-gradient-to-r from-gold to-copper text-gold-foreground px-8 py-3 rounded-lg font-semibold 
-           hover:shadow-gold transform hover:scale-105 transition-all duration-300 hover:brightness-110;
-  }
   
+
   .product-card {
-    @apply bg-gradient-to-br from-card to-charcoal/50 rounded-xl overflow-hidden
-           hover:shadow-elegant transform hover:scale-[1.02] transition-all duration-500;
+    @apply bg-gradient-to-br from-card to-charcoal/50 rounded-xl overflow-hidden hover:shadow-elegant transform hover:scale-[1.02] transition-all duration-500;
   }
-  
+
   .section-title {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-foreground to-muted-foreground 
-           bg-clip-text text-transparent leading-tight;
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent leading-tight;
   }
-  
+
   .accent-text {
     @apply bg-gradient-to-r from-gold to-copper bg-clip-text text-transparent font-semibold;
   }
-  
+
   .premium-button {
-    @apply border border-gold/30 text-gold hover:bg-gold/10 px-6 py-2 rounded-lg 
-           transition-all duration-300 hover:border-gold/60 hover:shadow-gold/20 hover:shadow-lg;
+    @apply border border-gold/30 text-gold cursor-pointer px-6 py-2 rounded-lg transition-all duration-300;
   }
 }

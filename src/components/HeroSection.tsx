@@ -1,77 +1,47 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import productsCollection from "@/assets/products-collection.jpg";
+
+// Parallax images
+import heroProducts from "@/assets/Hero/heroProducts.png";
+import bgStones from "@/assets/Hero/bgStones.png";
+import bgfog from "@/assets/Hero/bgfog.png";
 
 const HeroSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const smoothScroll = useSpring(scrollYProgress, {
+    damping: 50,
+    stiffness: 120,
+  });
+
+  // Parallax transforms
+  const fogY = useTransform(smoothScroll, [0, 0.5], ["0%", "60%"]);
+  const stonesY = useTransform(smoothScroll, [0, 2], ["0%", "40%"]);
+  const productsY = useTransform(smoothScroll, [0, 0.5], ["0%", "60%"]);
 
   return (
-    <section 
+    <section
       ref={ref}
-      className="relative min-h-screen bg-gradient-hero overflow-hidden flex items-center"
+      className="relative min-h-screen overflow-hidden flex items-start sm:items-center pt-32 sm:pt-0 justify-start bg-cover bg-left"
+      style={{ backgroundImage: "var(--gradient-hero)" }}
     >
-      {/* Parallax Background Products */}
-      <motion.div
-        style={{ y, opacity }}
-        className="absolute inset-0 flex items-center justify-center"
-      >
-        <img
-          src={productsCollection}
-          alt="Premium grooming products collection"
-          className="w-full h-full object-cover opacity-20"
-        />
-      </motion.div>
+     
 
-      {/* Floating Product Elements */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          rotate: [0, 5, -5, 0]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        className="absolute top-1/4 right-1/4 w-24 h-24 opacity-30"
-      >
-        <div className="w-full h-full bg-gradient-gold rounded-full blur-sm animate-pulse" />
-      </motion.div>
-
-      <motion.div
-        animate={{ 
-          y: [0, 15, 0],
-          rotate: [0, -5, 5, 0]
-        }}
-        transition={{ 
-          duration: 10, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 2
-        }}
-        className="absolute bottom-1/3 left-1/4 w-16 h-16 opacity-25"
-      >
-        <div className="w-full h-full bg-copper rounded-full blur-sm animate-pulse" />
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl">
+      {/* === Content === */}
+      <div className="relative z-40 container px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl text-center sm:text-left">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-6"
+            transition={{ duration: 0.8, delay: 1 }}
+            className="mb-4"
           >
-            <p className="text-gold text-lg font-medium tracking-wide">
+            <p className="text-gold text-xl sm:text-2xl md:text-4xl lg:text-4xl font-thin font-serif tracking-wide">
               Master Your Look
             </p>
           </motion.div>
@@ -79,18 +49,18 @@ const HeroSection = () => {
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="section-title mb-8"
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="section-title text-4xl pb-4 sm:text-5xl md:text-6xl lg:text-7xl mb-4 font-serif font-extralight leading-tight"
           >
             Define Your{" "}
-            <span className="accent-text italic">Legacy</span>
+            <span className="gold-text font-medium italic ">Legacy</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl text-muted-foreground mb-12 max-w-2xl leading-relaxed"
+            transition={{ duration: 0.8, delay: 2 }}
+            className="text-2xl sm:text-3xl font-normal text-gold mb-8 max-w-2xl leading-relaxed"
           >
             Proper Care for the Modern Man
           </motion.p>
@@ -98,13 +68,15 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <Button 
-              className="hero-button text-lg px-12 py-4 h-auto"
-              onClick={() => {
-                document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <Button
+              className="bg-transparent hover:bg-transparent text-gold font-lexend font-thin text-base sm:text-md border border-gold rounded-full px-8 py-4 sm:px-10 sm:py-5 h-auto"
+              onClick={() =>
+                document
+                  .getElementById("products")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               Experience Excellence
             </Button>
@@ -112,19 +84,49 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
-      
-      {/* Scroll Indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute inset-0 z-20 pointer-events-none"
+        initial={{ y: "60%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        <div className="w-6 h-10 border-2 border-gold/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gold rounded-full mt-2 animate-pulse" />
-        </div>
+        <motion.div
+          className="h-full w-full bg-bottom bg-cover"
+          style={{
+            backgroundImage: `url(${bgfog})`,
+            y: fogY,
+          }}
+        />
       </motion.div>
+      <motion.div
+        className="absolute inset-0 z-30 pointer-events-none"
+        initial={{ y: "40%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <motion.div
+          className="h-full w-full bg-bottom bg-contain bg-no-repeat"
+          style={{
+            backgroundImage: `url(${bgStones})`,
+            y: stonesY,
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        className="absolute inset-0 z-40 flex items-end justify-center sm:justify-end sm:pr-10 pointer-events-none"
+        initial={{ y: "60%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <motion.img
+          src={heroProducts}
+          alt="Hero Products"
+          className="h-1/2 sm:h-2/3 lg:h-3/4 w-auto"
+          style={{ y: productsY }}
+        />
+      </motion.div>
+
     </section>
   );
 };
