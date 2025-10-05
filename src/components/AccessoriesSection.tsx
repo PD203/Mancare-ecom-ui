@@ -1,81 +1,82 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import woodBrush from "@/assets/wood-brush.jpg";
-import shavingBrush from "@/assets/shaving-brush.jpg";
+import React from "react";
+import faceOil from "@/assets/Featured/product1.png";
 
-const AccessoriesSection = () => {
-  const accessories = [
+function AccessoriesSection() {
+  // gradients.js
+  const gradients = [
+    "linear-gradient(to right, #1e130c, #9a8478)",
+    "linear-gradient(to right, #243B55, #141E30)",
+    "linear-gradient(to right, #6A9113, #141517)",
+    ,
+  ];
+
+  const products = [
     {
-      id: "wood-brush",
-      title: "Wood Brush",
-      image: woodBrush,
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to more.",
+      id: 1,
+      name: "Wooden Comb",
+      description:
+        "A natural, handcrafted comb designed for gentle detangling and scalp stimulation. Perfect for daily grooming.",
+      image: faceOil,
+      button: "Shop Now",
+      gradient: gradients[0],
     },
     {
-      id: "shaving-brush",
-      title: "Shaving Brush",
-      image: shavingBrush,
-      description: "Premium shaving brush crafted with natural bristles for the perfect lather and comfortable shave experience.",
+      id: 2,
+      name: "Shaving Brush",
+      description:
+        "Premium shaving brush with soft bristles for a smooth lather. Enhances your shaving routine.",
+      image: faceOil,
+      button: "Shop Now",
+      gradient: gradients[1],
     },
   ];
 
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="accent-text">ACCESSORIES</span>
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            Unlock Proper Care's Full Potentials
-          </p>
-        </motion.div>
+    <section className="w-full bg-white  px-6 md:px-20">
+      {/* Heading */}
+      <div className="w-screen px-5 relative left-1/2 -translate-x-1/2 overflow-x-hidden">
+        <h2 className="text-center text-[151px] font-serif tracking-[0.2em] text-primary font-thin">
+          ACCESSORIES
+        </h2>
+        <p className="text-center text-gray-600 font-instrument text-[48px]">
+          Unlock Proper Care’s Full Potentials
+        </p>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {accessories.map((accessory, index) => (
-            <motion.div
-              key={accessory.id}
-              initial={{ opacity: 0, x: index === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="flex flex-col items-center text-center group"
+      {/* Cards */}
+      <div className="mt-16 grid md:grid-cols-2 gap-12">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="flex flex-col md:flex-row items-center bg-gray-50 shadow-lg p-6"
+          >
+            {/* Left side: Image with gradient */}
+            <div
+              className="w-full md:w-1/2 flex justify-center rounded-3xl p-6"
+              style={{ background: product.gradient }}
             >
-              <div className="relative mb-8 overflow-hidden rounded-2xl">
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.6 }}
-                  src={accessory.image}
-                  alt={accessory.title}
-                  className="w-80 h-80 object-cover transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+              <img
+                src={product.image}
+                alt={product.name}
+                className="max-h-60 object-contain"
+              />
+            </div>
 
-              <div className="max-w-md">
-                <p className="text-sm uppercase tracking-wider text-gold mb-2">
-                  ACCESSORIES
-                </p>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">
-                  {accessory.title}
-                </h3>
-                <p className="text-muted-foreground mb-8 leading-relaxed">
-                  {accessory.description}
-                </p>
-                <Button className="premium-button">
-                  SHOP
-                </Button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            {/* Right side: Details */}
+            <div className="w-full md:w-1/2 mt-6 md:mt-0 md:ml-6">
+              <h3 className="text-2xl font-semibold text-gray-800">
+                {product.name}
+              </h3>
+              <p className="text-gray-600 mt-2">{product.description}</p>
+              <button className="mt-4 px-5 py-2 bg-primary text-white rounded-xl hover:bg-primary/90 transition">
+                {product.button}
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
-};
+}
 
 export default AccessoriesSection;

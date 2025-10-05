@@ -1,88 +1,35 @@
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import modelHero from "@/assets/model-hero.jpg";
+import React from "react";
+import model from "../assets/Model/Frame 16.png"; // use your transparent PNG here
 
-const ModelSection = () => {
+
+export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-navy overflow-hidden flex items-center">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src={modelHero}
-          alt="Sophisticated male model"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-navy/60" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-left"
-          >
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4">
-              For Leaders
-            </h2>
-            <div className="w-32 h-0.5 bg-gradient-gold mb-8" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-right mb-16"
-          >
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-light italic text-muted-foreground">
-              By Leaders
-            </h3>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center"
-          >
-            <Button className="premium-button text-lg px-12 py-4 h-auto">
-              SHOP
-            </Button>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-1/4 left-10 w-2 h-2 bg-gradient-gold rounded-full"
-      />
+    <div className="relative w-full h-[782px] flex items-center justify-center bg-gradient-to-r from-[#141E30] to-[#243B55]">
       
-      <motion.div
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-        className="absolute bottom-1/3 right-20 w-3 h-3 bg-copper rounded-full"
-      />
-    </section>
-  );
-};
+      {/* Left Text */}
+      <div className="absolute left-10 pl-24 top-1/3 text-white">
+        <h1 className="text-[64px] font-serif">For <em>Leaders</em></h1>
+      </div>
 
-export default ModelSection;
+      {/* Right Text */}
+      <div className="absolute right-10 pr-24 top-1/3 text-white text-right">
+        <h1 className="text-[64px] font-serif">By <em>Leaders</em></h1>
+      </div>
+
+      {/* Center Model */}
+      <img
+        src={model}
+        alt="Model"
+        className="relative z-10 object-contain"
+      />
+
+      {/* Horizontal Gradient Line */}
+      <div className="absolute w-[80%] h-[1px] bg-gradient-to-r from-[#FFFFFF] to-[#6F6F6F] top-[45%] left-1/2 -translate-x-1/2 z-0"></div>
+
+      {/* Button */}
+      <button className="absolute bottom-12 px-6 py-2 border border-white rounded-lg text-white hover:bg-white hover:text-black transition z-20">
+        Shop
+      </button>
+    </div>
+  );
+}
