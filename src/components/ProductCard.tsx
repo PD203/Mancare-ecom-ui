@@ -1,23 +1,11 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import faceOil from "@/assets/Featured/product1.png";
+import { careProducts } from "@/lib/data";
 import leaf from "@/assets/Featured/leaf.png";
+import { Link } from "react-router-dom";
 
-// gradients.js
-export const gradients = [
-  "linear-gradient(to right, #6A9113, #141517)",
-  "linear-gradient(to right, #243B55, #141E30)",
-  "linear-gradient(to right, #9a8478, #1e130c)",
-];
-
-export const products = [
-  { id: 1, name: "Face Oil", image: faceOil, gradient: gradients[0] },
-  { id: 2, name: "Serum", image: faceOil, gradient: gradients[1] },
-  { id: 3, name: "Body Lotion", image: faceOil, gradient: gradients[2] },
-];
-
-const ProductCard = ({ title, image, gradient }) => {
+const ProductCard = ({ title, image, gradient, id }) => {
   return (
     <motion.div
       className="relative min-w-[750px] h-[400px] rounded-2xl p-8 flex items-center justify-between group my-8"
@@ -28,14 +16,16 @@ const ProductCard = ({ title, image, gradient }) => {
       {/* Text Section */}
       <div className="z-20">
         <div className="mb-6 w-fit">
-          <h2 className="text-6xl font-serif font-extralight text-white mb-2">
+          <h2 className="text-6xl font-inria  text-white mb-2">
             {title}
           </h2>
           <hr className="w-full h-[1px] bg-gradient-to-r from-white to-[#474747] border-0 rounded" />
         </div>
-        <button className="px-6 py-2 border border-white text-white rounded-full hover:bg-white hover:text-gray-600 transition">
-          Shop Now
-        </button>
+        <Link to={`/products/${id}`}>
+          <button className="px-6 py-2 border uppercase border-white text-white font-lexend rounded-full hover:bg-white hover:text-gray-600 transition">
+            Shop Now
+          </button>
+        </Link>
       </div>
 
       {/* Product Image */}
@@ -85,11 +75,12 @@ const ProductList = () => {
         ref={scrollRef}
         className="flex overflow-x-auto overflow-y-hidden gap-10 scrollbar-hide pl-6"
       >
-        {products.map((product) => (
+        {careProducts.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             title={product.name}
-            image={product.image}
+            image={product.images[0]}
             gradient={product.gradient}
           />
         ))}

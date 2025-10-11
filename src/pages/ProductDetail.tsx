@@ -1,214 +1,109 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Plus, Minus } from "lucide-react";
-import faceOilHero from "@/assets/face-oil-hero.jpg";
-import bodyWashHero from "@/assets/body-wash-hero.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-interface Product {
-  id: string;
-  title: string;
-  price: string;
-  images: string[];
-  description: string;
-  usage: string;
-}
+import { allProducts } from "@/lib/data";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const products: Record<string, Product> = {
-    "face-oil": {
-      id: "face-oil",
-      title: "Face Oil",
-      price: "399 rs",
-      images: [faceOilHero, faceOilHero],
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to more.",
-      usage: "Apply 2-3 drops to clean, dry skin. Gently massage in upward circular motions until fully absorbed. Use morning and evening for best results.",
-    },
-    "body-wash": {
-      id: "body-wash",
-      title: "Body Wash",
-      price: "299 rs",
-      images: [bodyWashHero, bodyWashHero],
-      description: "Premium body wash formulated with natural ingredients to cleanse and nourish your skin while providing a luxurious lather and masculine fragrance.",
-      usage: "Apply to wet skin, work into a rich lather, and rinse thoroughly. Use daily for optimal skin health and fragrance.",
-    },
-  };
-
-  const product = id ? products[id] : null;
+  const product = allProducts.find((p) => p.id === id);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   if (!product) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-          <Link to="/">
-            <Button className="premium-button">Return Home</Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return <div>Product not found</div>;
   }
 
-  const handleQuantityChange = (change: number) => {
-    setQuantity(Math.max(1, quantity + change));
-  };
+  const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
+  const increase = () => setQuantity((q) => q + 1);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main className="py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <Link
-              to="/"
-              className="flex items-center text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Product Images */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-4"
-            >
-              {/* Main Image */}
-              <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-card">
+    <>
+      <Header textColor="text-black" />
+      <div className="bg-white">
+        <div className=" pt-40 flex flex-col items-center py-10">
+          <div className="max-w-6xl w-full grid md:grid-cols-2 gap-14 bg-white p-8 ">
+            {/* Left Image Section */}
+            <div className="flex gap-14">
+              <div className="flex flex-col items-center justify-center space-y-3">
+                <button className="text-gray-500">▲</button>
+                {product.images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`${product.name} ${index + 1}`}
+                    width={60}
+                    height={60}
+                    className={` border h-20 w-16 cursor-pointer ${
+                      selectedImage === index
+                        ? "border-black"
+                        : "border-gray-300"
+                    }`}
+                    onClick={() => setSelectedImage(index)}
+                  />
+                ))}
+                <button className="text-gray-500">▼</button>
+              </div>
+              <div
+                className="flex-1 flex items-center justify-center rounded-[3rem] overflow-hidden"
+                style={{
+                  background: product.gradient,
+                  width: "388px",
+                  height: "450px",
+                }}
+              >
                 <img
                   src={product.images[selectedImage]}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
+                  alt={product.name}
+                  className="object-contain h-[550px]"
                 />
               </div>
-
-              {/* Thumbnail Images */}
-              <div className="flex space-x-4">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                      selectedImage === index
-                        ? "border-gold"
-                        : "border-border hover:border-gold/50"
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.title} ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+            </div>
+            {/* Right Details Section */}
+            <div className="flex  flex-col text-[#4E4E4E] justify-start space-y-6">
+              <div className="flex flex-col justify-between" style={{ lineHeight: "23px", height: "15%" }}>
+                <h1 className="text-3xl font-inter leading-[23px]">{product.name}</h1>
+                <p className="text-lg text-gray-600 mt-1">{product.price}</p>
+              </div>
+              <div className="flex  items-center gap-4  py-4 ">
+                <div className="flex items-center gap-5 px-10 py-2 mr-6 border-b border-t">
+                  <button onClick={decrease} className="text-lg font-semibold">
+                    -
                   </button>
-                ))}
+                  <span>{quantity}</span>
+                  <button onClick={increase} className="text-lg font-semibold">
+                    +
+                  </button>
+                </div>
+                <button className="border-t border-b px-6 py-3 font-lexend text-sm tracking-wide transition">
+                  Add to Cart
+                </button>
               </div>
-            </motion.div>
-
-            {/* Product Details */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div>
-                <h1 className="text-4xl font-bold text-foreground mb-4">
-                  {product.title}
-                </h1>
-                <p className="text-2xl text-gold font-semibold">
-                  {product.price}
-                </p>
-              </div>
-
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-gray-600 text-sm font-lexend">
                 {product.description}
               </p>
-
-              {/* Quantity Selector */}
-              <div className="flex items-center space-x-4">
-                <span className="text-foreground font-medium">Quantity:</span>
-                <div className="flex items-center border border-border rounded-lg">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleQuantityChange(-1)}
-                    className="h-10 w-10"
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="px-4 py-2 font-medium">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleQuantityChange(1)}
-                    className="h-10 w-10"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
+              <div className="border-t ">
+                <div className="flex justify-between px-6  items-center font-lexend tracking-wider text-sm font-medium border-b h-[45px]">
+                  <span>Description</span>
+                  <span>+</span>
+                </div>
+                <div className="flex justify-between px-6  items-center font-lexend tracking-wider text-sm font-medium border-b h-[45px]">
+                  <span>Proper usage</span>
+                  <span>+</span>
                 </div>
               </div>
-
-              {/* Add to Cart Button */}
-              <Button className="hero-button w-full text-lg py-4 h-auto">
-                Add to Cart
-              </Button>
-
-              {/* Tabs */}
-              <Tabs defaultValue="description" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 bg-muted/30">
-                  <TabsTrigger 
-                    value="description"
-                    className="data-[state=active]:bg-gold data-[state=active]:text-gold-foreground"
-                  >
-                    Description
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="usage"
-                    className="data-[state=active]:bg-gold data-[state=active]:text-gold-foreground"
-                  >
-                    Proper Usage
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="description" className="mt-6">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {product.description}
-                  </p>
-                </TabsContent>
-                <TabsContent value="usage" className="mt-6">
-                  <p className="text-muted-foreground leading-relaxed">
-                    {product.usage}
-                  </p>
-                </TabsContent>
-              </Tabs>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </main>
-
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

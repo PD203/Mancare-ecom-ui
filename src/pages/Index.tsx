@@ -8,7 +8,7 @@ import Featured from "@/components/Featured";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {/* <Header /> */}
       <HeroSection />
       <Featured />
       <AccessoriesSection />
