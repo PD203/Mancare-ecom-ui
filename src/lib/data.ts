@@ -25,10 +25,10 @@ export const gradients = [
 
 export const careProducts: Product[] = [
   {
-    id: "face-oil",
-    name: "Face Oil",
+    id: "lotion",
+    name: "Body Lotion",
     price: "399 rs",
-    images: [faceOil],
+    images: [lotion],
     gradient: gradients[0],
     description: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to more.",
     usage: "Apply 2-3 drops to clean, dry skin...",
@@ -45,9 +45,9 @@ export const careProducts: Product[] = [
     category: "Care Products",
   },
   { 
-    id: "Body-lotion", 
-    name: "Body Lotion", 
-    images: [lotion], 
+    id: "shampoo", 
+    name: "Shampoo", 
+    images: [shampoo], 
     gradient: gradients[2], 
     description: "A serum for your face. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 
     category: "Care Products",
@@ -55,9 +55,9 @@ export const careProducts: Product[] = [
     usage: "Apply a small amount to face in the morning and evening."
   },
   { 
-    id: "shampoo", 
-    name: "Shampoo", 
-    images: [shampoo], 
+    id: "face-oil", 
+    name: "Face oil", 
+    images: [faceOil], 
     gradient: gradients[0], 
     description: "A lotion for your body. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 
     category: "Care Products",
