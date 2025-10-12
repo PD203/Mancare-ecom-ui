@@ -1,4 +1,7 @@
 import faceOil from "@/assets/Featured/product1.png";
+import soap from "@/assets/Featured/product2.png";
+import lotion from "@/assets/Featured/product3.png";
+import shampoo from "@/assets/Featured/product4.png";
 import comb from "@/assets/accesories/comb.png";
 import brush from "@/assets/accesories/brush.png";
 import bodyWashHero from "@/assets/body-wash-hero.jpg";
@@ -16,9 +19,8 @@ description: string;
 
 export const gradients = [
   "linear-gradient(to right, #6A9113, #141517)",
-  "linear-gradient(to right, #243B55, #141E30)",
   "linear-gradient(to right, #9a8478, #1e130c)",
-  "linear-gradient(to right, #1e130c, #9a8478)", // for comb
+  "linear-gradient(to right, #243B55, #141E30)",
 ];
 
 export const careProducts: Product[] = [
@@ -33,30 +35,30 @@ export const careProducts: Product[] = [
     category: "Care Products",
   },
   {
-    id: "body-wash",
-    name: "Body Wash",
-    price: "299 rs",
-    images: [bodyWashHero],
+    id: "sandalwood-soap",
+    name: "Sandalwood Soap",
+    price: "99 rs",
+    images: [soap],
     gradient: gradients[1],
     description: "Premium body wash formulated with natural ingredients...",
     usage: "Apply to wet skin, work into a rich lather...",
     category: "Care Products",
   },
   { 
-    id: "serum", 
-    name: "Serum", 
-    images: [faceOil], 
-    gradient: gradients[1], 
+    id: "Body-lotion", 
+    name: "Body Lotion", 
+    images: [lotion], 
+    gradient: gradients[2], 
     description: "A serum for your face. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 
     category: "Care Products",
-    price: "499 rs",
+    price: "299 rs",
     usage: "Apply a small amount to face in the morning and evening."
   },
   { 
-    id: "body-lotion", 
-    name: "Body Lotion", 
-    images: [faceOil], 
-    gradient: gradients[2], 
+    id: "shampoo", 
+    name: "Shampoo", 
+    images: [shampoo], 
+    gradient: gradients[0], 
     description: "A lotion for your body. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 
     category: "Care Products",
     price: "349 rs",
@@ -69,7 +71,7 @@ export const accessories: Product[] = [
     id: "wooden-comb",
     name: "Wooden Comb",
     images: [comb],
-    gradient: gradients[3],
+    gradient: gradients[1],
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to  more.",
     category: "Accessories",
     price: "199 rs",
@@ -79,7 +81,7 @@ export const accessories: Product[] = [
     id: "shaving-brush",
     name: "Shaving Brush",
     images: [brush],
-    gradient: gradients[1],
+    gradient: gradients[2],
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to  more.",
     category: "Accessories",
     price: "249 rs",
