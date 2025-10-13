@@ -21,7 +21,7 @@ const HeroSection = () => {
   });
 
   // Parallax transforms
-  const fogY = useTransform(smoothScroll, [0, 0.5], ["0%", "60%"]);
+  const fogY = useTransform(smoothScroll, [0, 1], ["0%", "50%"]);
   const stonesY = useTransform(smoothScroll, [0, 2], ["0%", "40%"]);
   const productsY = useTransform(smoothScroll, [0, 0.5], ["0%", "60%"]);
 
@@ -90,9 +90,9 @@ const HeroSection = () => {
 
       <motion.div
         className="absolute inset-0 z-20 pointer-events-none"
-        initial={{ y: "60%" }}
+        initial={{ y: "50%" }}
         animate={{ y: "0%" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
       >
         <motion.div
           className="h-full w-full bg-bottom bg-cover"
